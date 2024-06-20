@@ -14,28 +14,28 @@ export const peach = {
 
 export const yoshi = {
   name: "Yoshi",
-  speed: 3,
+  speed: 2,
   handling: 4,
-  power: 2,
+  power: 3,
 }
 
 export const bowser = {
   name: "Bowser",
-  speed: 3,
-  handling: 4,
-  power: 2,
+  speed: 5,
+  handling: 2,
+  power: 5,
 }
 
 export const luigi = {
   name: "Luigi",
   speed: 3,
   handling: 4,
-  power: 2,
+  power: 4,
 }
 
 export const donkeyKong = {
   name: "Donkey Kong",
-  speed: 3,
-  handling: 4,
-  power: 2,
+  speed: 2,
+  handling: 2,
+  power: 5,
 }
