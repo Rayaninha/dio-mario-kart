@@ -1,6 +1,13 @@
 import { createInterface } from 'readline';
 import { mario, peach, yoshi, bowser, luigi, donkeyKong } from './players.js';
 
+const ANSI_RESET = "\u001B[0m";
+const ANSI_RED = "\u001B[31m";
+const ANSI_GREEN = "\u001B[32m";
+const ANSI_YELLOW = "\u001B[33m";
+const ANSI_BLUE = "\u001B[34m";
+
+
 function askQuestion(rl, question) {
   return new Promise((resolve) => {
     rl.question(question, (answer) => {
@@ -35,7 +42,7 @@ async function selectPlayer() {
       selectedPlayer = players[selectedPlayerIndex];
       players.splice(selectedPlayerIndex, 1)
     } else {
-      console.log('Invalid number. Please choose a number between 0 and 5.');
+      console.log(ANSI_RED + 'Invalid number. Please choose a number between 0 and 5.' + ANSI_RESET);
     }
   }
 
@@ -69,7 +76,7 @@ async function getRandomBlock() {
 }
 
 async function logRollResult(characterName, type, diceResult, attribute) {
-  console.log(`${characterName} rolled a ${type} die on the side ${diceResult} adding: ${diceResult} + ${attribute} = ${diceResult + attribute}`);
+  console.log(`${characterName} rolled a ${ANSI_YELLOW}${type}${ANSI_RESET} die on the side ${diceResult} adding: ${ANSI_BLUE}${diceResult} + ${attribute} = ${diceResult + attribute}${ANSI_RESET}`);
 }
 
 async function playRaceEngine(player, opponent) {
@@ -77,7 +84,7 @@ async function playRaceEngine(player, opponent) {
     console.log(`Round ${round}`)
 
     const { type } = await getRandomBlock()
-    console.log(`Type ${type}`)
+    console.log(`${ANSI_YELLOW}Type ${type}${ANSI_RESET}`)
 
     let playerDieResult = await rollDice()
     let opponentDieResult = await rollDice()
@@ -111,25 +118,25 @@ async function playRaceEngine(player, opponent) {
       await logRollResult(opponent.name, "power", opponentDieResult, opponent.power);
 
       if (resultPlayerPower > resultOpponentPower && opponent.points > 0) {
-        console.log(`${player.name} won the fight. ${opponent.name} lost one point`)
+        console.log(`${ANSI_RED}${player.name} won the fight. ${opponent.name} lost one point${ANSI_RESET}`)
         opponent.points--;
       }
 
       if (resultOpponentPower > resultPlayerPower && player.points > 0) {
-        console.log(`${opponent.name} won the fight. ${player.name} lost one point`)
+        console.log(`${ANSI_RED}${opponent.name} won the fight. ${player.name} lost one point${ANSI_RESET}`)
         player.points--;
       }
 
       if (resultPlayerPower === resultOpponentPower) {
-        console.log('Draw, no points were lost')
+        console.log(`${ANSI_BLUE}Draw, no points were lost${ANSI_RESET}`)
       }
     }
 
     if (totalPlayerSkill > totalOpponentSkill) {
-      console.log(`${player.name} scored a point`);
+      console.log(`${ANSI_GREEN}${player.name} scored a point${ANSI_RESET}`);
       player.points++;
     } else if (totalOpponentSkill > totalPlayerSkill) {
-      console.log(`${opponent.name} scored a point`);
+      console.log(`${ANSI_GREEN}${opponent.name} scored a point${ANSI_RESET}`);
       opponent.points++;
     }
 
@@ -143,14 +150,14 @@ async function declareWinner(player, opponent) {
   console.log(`${opponent.name}: ${opponent.points} point(s)`);
 
   if (player.points > opponent.points)
-    console.log(`\n${player.name} won the race. Congratulations`);
+    console.log(`\n${ANSI_GREEN}${player.name} won the race. Congratulations${ANSI_RESET}`);
   else if (opponent.points > player.points)
-    console.log(`\n${opponent.name} won the race. Congratulations`);
+    console.log(`\n${ANSI_GREEN}${opponent.name} won the race. Congratulations${ANSI_RESET}`);
   else
-    console.log("The race ended in a draw");
+    console.log(`${ANSI_BLUE}The race ended in a draw${ANSI_RESET}`);
 }
 
-(async function main() {
+(async function main() {  
   const { selectedPlayer, selectedOpponent } = await selectPlayer();
   console.log(`Race between ${selectedPlayer.name} and ${selectedOpponent.name}`);
 
