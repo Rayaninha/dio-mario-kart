@@ -137,9 +137,23 @@ async function playRaceEngine(player, opponent) {
   }
 }
 
+async function declareWinner(player, opponent) {
+  console.log("Final result:")
+  console.log(`${player.name}: ${player.points} point(s)`);
+  console.log(`${opponent.name}: ${opponent.points} point(s)`);
+
+  if (player.points > opponent.points)
+    console.log(`\n${player.name} won the race. Congratulations`);
+  else if (opponent.points > player.points)
+    console.log(`\n${opponent.name} won the race. Congratulations`);
+  else
+    console.log("The race ended in a draw");
+}
+
 (async function main() {
   const { selectedPlayer, selectedOpponent } = await selectPlayer();
   console.log(`Race between ${selectedPlayer.name} and ${selectedOpponent.name}`);
 
   await playRaceEngine(selectedPlayer, selectedOpponent)
+  await declareWinner(selectedPlayer, selectedOpponent)
 })();
