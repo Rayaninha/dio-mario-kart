@@ -3,6 +3,7 @@ export const mario = {
   speed: 4,
   handling: 3,
   power: 3,
+  points: 0,
 }
 
 export const peach = {
@@ -10,6 +11,7 @@ export const peach = {
   speed: 3,
   handling: 4,
   power: 2,
+  points: 0,
 }
 
 export const yoshi = {
@@ -17,6 +19,7 @@ export const yoshi = {
   speed: 2,
   handling: 4,
   power: 3,
+  points: 0,
 }
 
 export const bowser = {
@@ -24,6 +27,7 @@ export const bowser = {
   speed: 5,
   handling: 2,
   power: 5,
+  points: 0,
 }
 
 export const luigi = {
@@ -31,6 +35,7 @@ export const luigi = {
   speed: 3,
   handling: 4,
   power: 4,
+  points: 0,
 }
 
 export const donkeyKong = {
@@ -38,4 +43,5 @@ export const donkeyKong = {
   speed: 2,
   handling: 2,
   power: 5,
+  points: 0,
 }
