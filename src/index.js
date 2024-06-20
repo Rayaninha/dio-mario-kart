@@ -51,7 +51,35 @@ async function selectPlayer() {
   };
 }
 
+async function rollDice() {
+  return Math.floor(Math.random() * 6) + 1;
+}
+
+async function getRandomBlock() {
+  let type;
+
+  const roadTypes = ["straight", "curve", "fight"]
+
+  const randomType = Math.floor(Math.random() * roadTypes.length)
+  type = roadTypes[randomType]
+
+  return {
+    type
+  }
+}
+
+async function playRaceEngine(player, opponent) {
+  for (let round = 0; round < 5; round++) {
+    console.log(`Round ${round}`)
+
+    const { type } = await getRandomBlock()
+    console.log(`Type ${type}`)
+  }
+}
+
 (async function main() {
   const { selectedPlayer, selectedOpponent } = await selectPlayer();
   console.log(`Race between ${selectedPlayer.name} and ${selectedOpponent.name}`);
+
+  await playRaceEngine(selectedPlayer, selectedOpponent)
 })();
