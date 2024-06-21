@@ -1,4 +1,6 @@
 # Mario Kart.JS
+### About
+Project based on the activity done in the Node.js Fundamentals course, at DIO. Base project link: https://github.com/digitalinnovationone/formacao-nodejs/tree/main/03-projeto-mario-kart
 
 ## Players
 
