@@ -29,6 +29,28 @@ async function logRollResult(characterName, type, diceResult, attribute) {
   );
 }
 
+async function fightLogic(winner, loser, typePower) {
+    if (!loser.points > 0) {
+        console.log(
+          `${COLOR.ANSI_YELLOW}${loser.name} has no points to lose${COLOR.ANSI_RESET}`
+        );
+      } else if (typePower === "turtle shell") {
+        console.log(
+          `${COLOR.ANSI_RED}${winner.name} won the fight. ${loser.name} lost one point${COLOR.ANSI_RESET}`
+        );
+        loser.points--;
+      } else if (typePower === "bomb" && loser.points >= 2) {
+        console.log(
+          `${COLOR.ANSI_RED}${winner.name} won the fight. ${loser.name} lost two points${COLOR.ANSI_RESET}`
+        );
+        loser.points = loser.points - 2;
+      } else if (typePower === "bomb" && loser.points < 2) {
+        console.log(
+          `${COLOR.ANSI_YELLOW}${loser.name} has no points to lose${COLOR.ANSI_RESET}`
+        );
+      }
+}
+
 export async function playRaceEngine(player, opponent) {
   for (let round = 0; round < 5; round++) {
     console.log(`Round ${round}`);
@@ -77,6 +99,13 @@ export async function playRaceEngine(player, opponent) {
       let resultPlayerPower = playerDieResult + player.power;
       let resultOpponentPower = opponentDieResult + opponent.power;
 
+      let typePower
+
+      let powerTypes = ["bomb", "turtle shell"];
+
+      const randomPower = Math.floor(Math.random() * powerTypes.length);
+      typePower = powerTypes[randomPower];
+
       console.log(`${player.name} confronted ${opponent.name}`);
 
       await logRollResult(player.name, "power", playerDieResult, player.power);
@@ -87,18 +116,12 @@ export async function playRaceEngine(player, opponent) {
         opponent.power
       );
 
-      if (resultPlayerPower > resultOpponentPower && opponent.points > 0) {
-        console.log(
-          `${COLOR.ANSI_RED}${player.name} won the fight. ${opponent.name} lost one point${COLOR.ANSI_RESET}`
-        );
-        opponent.points--;
+      if (resultPlayerPower > resultOpponentPower) {
+        fightLogic(player, opponent, typePower)
       }
 
-      if (resultOpponentPower > resultPlayerPower && player.points > 0) {
-        console.log(
-          `${COLOR.ANSI_RED}${opponent.name} won the fight. ${player.name} lost one point${COLOR.ANSI_RESET}`
-        );
-        player.points--;
+      if (resultOpponentPower > resultPlayerPower) {
+        fightLogic(opponent, player, typePower)
       }
 
       if (resultPlayerPower === resultOpponentPower) {
