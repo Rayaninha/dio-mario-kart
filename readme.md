@@ -63,3 +63,4 @@ Project based on the activity done in the Node.js Fundamentals course, at DIO. B
 | <img src="./public/icons/speed_icon.png" alt="Speed" width="20" height="20"> Speed | 2 |
 | <img src="./public/icons/handling_icon.png" alt="Handling" width="20" height="20"> Handling | 2 |
 | <img src="./public/icons/power_icon.png" alt="Power" width="20" height="20"> Power | 5 |
+<img src="./public/certificate/certificate.jpg">
